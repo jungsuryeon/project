@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기여도 분석</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background-color: #4CAF50; color: white; }
+    </style>
+</head>
+<body>
+    <h2>GitHub 기여도 분석</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>이름</th>
+                <th>커밋 수</th>
+            </tr>
+        </thead>
+        <tbody id="contributors">
+        </tbody>
+    </table>
+    <script>
+        fetch('/api/contributions')  // Node.js 서버에서 JSON 데이터 받아옴
+            .then(response => response.json())
+            .then(data => {
+                let tableBody = document.getElementById('contributors');
+                data.forEach(user => {
+                    let row = `<tr>
+                        <td>${user.login}</td>
+                        <td>${user.commits}</td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
