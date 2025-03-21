@@ -1,10 +1,10 @@
 import { getContributors } from './src/fetchContributions.js';
 import { calculateScores } from './src/calculateScore.js';
-import { owner, repo, token } from './config.js';
+import { owner, repo} from './config.js';
 
 (async () => {
   try {
-    const contributors = await getContributors(owner, repo, token);
+    const contributors = await getContributors(owner, repo);
     const scores = calculateScores(contributors);
 
     console.log('기여도 점수:');
