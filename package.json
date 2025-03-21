@@ -5,12 +5,14 @@
     "main": "main.js",
     "type": "module",
     "scripts": {
-      "start": "node main.js"
+        "start": "node main.js"
     },
-    "keywords": ["GitHub", "contributions", "score", "javascript"],
+    "keywords": [
+        "GitHub",
+        "contributions",
+        "score",
+        "javascript"
+    ],
     "author": "정수련",
-    "license": "MIT",
-    "dependencies": {
-      "node-fetch": "^3.3.2"
-    }
-  }
+    "license": "MIT"
+}
