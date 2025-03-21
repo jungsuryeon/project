@@ -7,30 +7,33 @@ import { owner, repo } from './config.js';
     const contributors = await getContributors(owner, repo);
     const scores = calculateScores(contributors);
 
-    // 콘솔에 출력
-    console.log('기여도 점수:');
-    scores.forEach(user => {
-      console.log(`${user.login}: ${user.score}점`);
-    });
+    // ✅ 콘솔에서 데이터 확인 (정상 출력되는지 체크)
+    console.log("📢 기여도 점수:", scores);
 
-    // HTML 페이지에 결과 표시 (index.html 연결 필요)
-    if (typeof document !== 'undefined') {
-      const outputDiv = document.getElementById('output');
-      let resultHTML = "<h3>기여도 점수</h3><ul>";
-      scores.forEach(user => {
-        resultHTML += `<li>${user.login}: ${user.score}점</li>`;
-      });
-      resultHTML += "</ul>";
-      outputDiv.innerHTML = resultHTML;
-      <h1>GitHub 기여도 분석</h1>
+    // 🔥 페이지에 표시하기 전에 `document.getElementById('output')`가 있는지 확인
+    const outputDiv = document.getElementById('output');
+    console.log("📢 outputDiv 값:", outputDiv); // ✅ 콘솔에서 확인하기!
+
+    if (!outputDiv) {
+      console.error("🚨 오류: `#output` 요소를 찾을 수 없습니다!");
+      return; // `output` 요소가 없으면 여기서 중단!
     }
 
-  } catch (err) {
-    console.error('오류 발생:', err);
+    // 🔥 HTML 페이지에 결과 표시
+    let resultHTML = "<h3>기여도 점수</h3><ul>";
+    scores.forEach(user => {
+      resultHTML += `<li>${user.login}: ${user.score}점</li>`;
+    });
+    resultHTML += "</ul>";
+    outputDiv.innerHTML = resultHTML; // ✅ 최종적으로 페이지에 데이터 삽입
 
-    if (typeof document !== 'undefined') {
-      document.getElementById('output').innerHTML = 
-        `<p style='color:red;'>오류 발생: ${err.message}</p>`;
+  } catch (err) {
+    console.error('🚨 오류 발생:', err);
+
+    // 오류 발생 시 HTML에도 표시
+    const outputDiv = document.getElementById('output');
+    if (outputDiv) {
+      outputDiv.innerHTML = `<p style='color:red;'>오류 발생: ${err.message}</p>`;
     }
   }
 })();
