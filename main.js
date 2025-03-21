@@ -22,6 +22,7 @@ import { owner, repo } from './config.js';
       });
       resultHTML += "</ul>";
       outputDiv.innerHTML = resultHTML;
+      <h1>GitHub 기여도 분석</h1>
     }
 
   } catch (err) {
